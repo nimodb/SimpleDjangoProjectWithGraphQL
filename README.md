@@ -89,7 +89,7 @@ class Query(graphene.ObjectType):
 schema = graphene.Schema(query=Query)
 ```
 
-## Set Up URLs
+## Step 5: Set Up URLs
 Link the `books` app to the main project and create a new `urls.py` in the `books` app to access GraphQL.
 ```python
 # urls.py (core project)
@@ -143,7 +143,11 @@ python manage.py loaddata books_data.json
 ```
 
 ## Step 7: Test GraphQL Endpoint
-Run the Django server and test the GraphQL endpoint by navigating to `http://localhost:8000/graphql` and running the following query:
+Run the Django server and test the combined GraphQL endpoint:
+```bash
+python manage.py runserver
+```
+Navigate to `http://localhost:8000/graphql` and running the following query:
 ```graphql
 {
     allBooks {
