@@ -143,3 +143,21 @@ Load the data into the database.
 ```bash
     python manage.py loaddata books_data.json
 ```
+
+## Step 7: Test GraphQL Endpoint
+Run the Django server and test the GraphQL endpoint by navigating to 'http://localhost:8000/graphql' and running the following query:
+```graphql
+    {
+        allBooks {
+            id
+            title
+            author
+        }
+    }
+```
+
+You should see the list of books returned as a response.
+
+
+## Conclusion
+In this tutorial, we set up a simple Django project with a GraphQL endpoint to query book data. We created a project and app, set up the models and database, configured the GraphQL schema, added sample data, and tested the endpoint. This setup provides a solid foundation for building more complex applications with Django and GraphQL.
