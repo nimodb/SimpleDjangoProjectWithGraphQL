@@ -1,6 +1,6 @@
 # Creating a Simple Django Project with GraphQL
 
-In this tutorial, we'll create a simple Django project with GraphQL integration. We'll create a project called "core" and an app called "books". The "books" app will have a model with title and author fields. We'll set up GraphQL to query the books. Finally, we'll add some sample data to the database and test the GraphQL endpoint.
+In this tutorial, we'll create a simple Django project with GraphQL integration. We'll create a project called `core` and an app called `books`. The `books` app will have a model with title and author fields. We'll set up GraphQL to query the books. Finally, we'll add some sample data to the database and test the GraphQL endpoint.
 
 ## Step 1: Set Up Virtual Environment and Install Packages
 First, create a virtual environment and install the necessary packages.
@@ -11,6 +11,7 @@ python -m venv env
 # Activate virtual environment
 # On Windows
 env\Scripts\activate
+
 # On macOS/Linux
 source env/bin/activate
 
@@ -19,7 +20,7 @@ pip install django graphene-django
 ```
 
 ## Step 2: Create New Django Project and App
-Create a new Django project named "core" and a new app named "books".
+Create a new Django project named `core` and a new app named `books`.
 ```bash
 # Create Django project
 django-admin startproject core .
@@ -29,11 +30,10 @@ python manage.py startapp books
 ```
 
 ## Step 3: Set Up Models and Database
-In the "books" app, create a model with title and author fields.
-
-**models.py (books app)**
-
+In the `books` app, create a model with title and author fields.
 ```python
+# models.py (books app)
+
 from django.db import models
 
 class Books(models.Model):
@@ -44,10 +44,10 @@ class Books(models.Model):
         return self.title
 ```
 
-**settings.py (core project)**
-
-Add the "books" app and Graphene to the "INSTALLED_APPS".
+Add the `books` app and Graphene to the `INSTALLED_APPS`.
 ```python
+# settings.py (core project)
+
 INSTALLED_APPS = [
     ...
     'books',
@@ -64,10 +64,10 @@ python manage.py migrate
 ```
 
 ## Step 4: Set Up GraphQL Schema
-Create a new file called schema.py in the books app and set up the GraphQL schema.
-
-**schema.py (books app)**
+Create a new file called `schema.py` in the `books` app and set up the GraphQL schema.
 ```python
+# schema.py (books app)
+
 import graphene
 from graphene_django import DjangoObjectType
 from .models import Books
@@ -90,11 +90,10 @@ schema = graphene.Schema(query=Query)
 ```
 
 ## Set Up URLs
-Link the "books" app to the main project and create a new "urls.py" in the "books" app to access GraphQL.
-
-**urls.py (core project)**
-
+Link the `books` app to the main project and create a new `urls.py` in the `books` app to access GraphQL.
 ```python
+# urls.py (core project)
+
 from django.contrib import admin
 from django.urls import path, include
 from graphene_django.views import GraphQLView
@@ -107,9 +106,9 @@ urlpatterns = [
 ]
 ```
 
-**urls.py (books app)**
-
 ```python
+# urls.py (books app)
+
 from django.urls import path
 from graphene_django.views import GraphQLView
 from .schema import schema
@@ -121,10 +120,9 @@ urlpatterns = [
 
 ## Step 6: Add Sample Data
 Create a JSON file with sample book data and load it into the database.
-
-**books_data.json**
-
 ```json
+// books_data.json
+
 [
     {"model": "books.books", "pk": 1, "fields": {"title": "Faust", "author": "Johann Wolfgang von Goethe"}},
     {"model": "books.books", "pk": 2, "fields": {"title": "The Trial", "author": "Franz Kafka"}},
@@ -145,7 +143,7 @@ python manage.py loaddata books_data.json
 ```
 
 ## Step 7: Test GraphQL Endpoint
-Run the Django server and test the GraphQL endpoint by navigating to 'http://localhost:8000/graphql' and running the following query:
+Run the Django server and test the GraphQL endpoint by navigating to `http://localhost:8000/graphql` and running the following query:
 ```graphql
 {
     allBooks {
@@ -159,5 +157,16 @@ Run the Django server and test the GraphQL endpoint by navigating to 'http://loc
 You should see the list of books returned as a response.
 
 
-## Conclusion
-In this tutorial, we set up a simple Django project with a GraphQL endpoint to query book data. We created a project and app, set up the models and database, configured the GraphQL schema, added sample data, and tested the endpoint. This setup provides a solid foundation for building more complex applications with Django and GraphQL.
+## Step 8: Freeze the requirements
+After setting up the project, freeze the installed packages to a `requirements.txt` file.
+```bash
+pip freeze > requirements.txt
+```
+
+
+## Next Steps
+In Part 2, we will create another app called `quiz` to manage quizzes, categories, questions, and answers. We will extend our GraphQL schema to handle complex querying and filtering for these new models.
+
+[Go to Part 2: Queries with GraphQL](https://github.com/nimodb/QueriesWithGraphQL_Part2)
+
+Stay tuned!
