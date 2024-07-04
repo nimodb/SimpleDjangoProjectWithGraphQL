@@ -30,8 +30,10 @@ Create a new Django project named "core" and a new app named "books".
 
 ## Step 3: Set Up Models and Database
 In the "books" app, create a model with title and author fields.
+
 **models.py (books app)**
-```bash
+
+```python
     from django.db import models
 
     class Books(models.Model):
@@ -43,8 +45,9 @@ In the "books" app, create a model with title and author fields.
 ```
 
 **settings.py (core project)**
+
 Add the "books" app and Graphene to the "INSTALLED_APPS".
-```bash
+```python
     INSTALLED_APPS = [
         ...
         'books',
@@ -53,8 +56,35 @@ Add the "books" app and Graphene to the "INSTALLED_APPS".
 ```
 
 **Database Migration**
+
 Run the migrations to set up the database.
 ```bash
     python manage.py makemigrations
     python manage.py migrate
+```
+
+## Step 4: Set Up GraphQL Schema
+Create a new file called schema.py in the books app and set up the GraphQL schema.
+
+**schema.py (books app)**
+```python
+    import graphene
+    from graphene_django import DjangoObjectType
+    from .models import Books
+
+
+    class BooksType(DjangoObjectType):
+        class Meta:
+            model = Books
+            fields = ("id", "title", "author")
+
+
+    class Query(graphene.ObjectType):
+        all_books = graphene.List(BooksType)
+
+        def resolve_all_books(root, info):
+            return Books.objects.all()
+
+
+    schema = graphene.Schema(query=Query)
 ```
