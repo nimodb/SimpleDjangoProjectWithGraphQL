@@ -88,3 +88,33 @@ Create a new file called schema.py in the books app and set up the GraphQL schem
 
     schema = graphene.Schema(query=Query)
 ```
+
+## Set Up URLs
+Link the "books" app to the main project and create a new "urls.py" in the "books" app to access GraphQL.
+
+**urls.py (core project)**
+
+```python
+    from django.contrib import admin
+    from django.urls import path, include
+    from graphene_django.views import GraphQLView
+    from books.schema import schema
+
+    urlpatterns = [
+        path("admin/", admin.site.urls),
+        path("graphql/", GraphQLView.as_view(graphiql=True, schema=schema)),
+        path("", include("books.urls")),
+    ]
+```
+
+**urls.py (books app)**
+
+```python
+    from django.urls import path
+    from graphene_django.views import GraphQLView
+    from .schema import schema
+
+    urlpatterns = [
+        path('graphql', GraphQLView.as_view(graphiql=True, schema=schema)),
+    ]
+```
