@@ -118,3 +118,28 @@ Link the "books" app to the main project and create a new "urls.py" in the "book
         path('graphql', GraphQLView.as_view(graphiql=True, schema=schema)),
     ]
 ```
+
+## Step 6: Add Sample Data
+Create a JSON file with sample book data and load it into the database.
+
+**books_data.json**
+
+```json
+[
+    {"model": "books.books", "pk": 1, "fields": {"title": "Faust", "author": "Johann Wolfgang von Goethe"}},
+    {"model": "books.books", "pk": 2, "fields": {"title": "The Trial", "author": "Franz Kafka"}},
+    {"model": "books.books", "pk": 3, "fields": {"title": "Siddhartha", "author": "Hermann Hesse"}},
+    {"model": "books.books", "pk": 4, "fields": {"title": "The Metamorphosis", "author": "Franz Kafka"}},
+    {"model": "books.books", "pk": 5, "fields": {"title": "Steppenwolf", "author": "Hermann Hesse"}},
+    {"model": "books.books", "pk": 6, "fields": {"title": "Berlin Alexanderplatz", "author": "Alfred Döblin"}},
+    {"model": "books.books", "pk": 7, "fields": {"title": "The Sorrows of Young Werther", "author": "Johann Wolfgang von Goethe"}},
+    {"model": "books.books", "pk": 8, "fields": {"title": "Death in Venice", "author": "Thomas Mann"}},
+    {"model": "books.books", "pk": 9, "fields": {"title": "The Magic Mountain", "author": "Thomas Mann"}},
+    {"model": "books.books", "pk": 10, "fields": {"title": "All Quiet on the Western Front", "author": "Erich Maria Remarque"}}
+]
+```
+
+Load the data into the database.
+```bash
+    python manage.py loaddata books_data.json
+```
